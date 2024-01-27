@@ -6,7 +6,17 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
-  }  
+  }  ,
+  {
+    path: '/buyer',
+    name: 'buyer',
+    component: () => import('../views/BuyerView.vue')
+  },
+  {
+    path: '/seller',
+    name: 'seller',
+    component: () => import('../views/SellerView.vue')
+  }
 ]
 
 const router = createRouter({
