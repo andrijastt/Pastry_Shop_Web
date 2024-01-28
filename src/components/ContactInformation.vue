@@ -1,6 +1,6 @@
 <template>    
     
-    <div id="footer" class="d-flex justify-content-between">
+    <footer id="footer" class="d-flex justify-content-between">
         <div id="footerText" style="padding-left: 10px;">
             Kontakt Informacije
         </div>
@@ -12,18 +12,19 @@
             Radno vreme:
             <i>08:00-21:00</i>
         </div>
-    </div>
+    </footer>
     
 </template>
 
 <style>
     #footer{                
-        position: absolute;
-        width: 100%;
+        position: relative;        
         height: fit-content;
-        left: 0;
         bottom: 0;
+        left: 0;
+        right: 0;
         background: white;
+        margin-top: 60%;       
     }
 
     #footerText{                

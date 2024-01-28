@@ -92,7 +92,7 @@
   #logIn{      
     position: absolute;
     width: 30%;
-    height: 30%;
+    height: fit-content;
     left: 35%;
     top: 20%;      
   }
