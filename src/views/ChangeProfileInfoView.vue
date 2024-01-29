@@ -42,7 +42,7 @@
                     </div>                                   
 
                     <div class="gap-2 d-flex justify-content-center">            
-                        <button type="button" class="btn btn-warning btn-lg">Izmeni podatke</button>                    
+                        <button type="button" class="btn btn-warning btn-lg" @click="updateUserData()">Izmeni podatke</button>                    
                     </div>
                     <br>
                 </form>
@@ -71,7 +71,7 @@
                     </div>                                   
 
                     <div class="gap-2 d-flex justify-content-center">            
-                        <button type="button" class="btn btn-warning btn-lg">Izmeni lozinku</button>                    
+                        <button type="button" class="btn btn-warning btn-lg" @click="updateUserPassword()">Izmeni lozinku</button>                    
                     </div>                     
             </div>
         </div>
@@ -105,10 +105,7 @@
             }
         },
         methods: {
-            updateUserData(){
-
-                console.log(this.users)
-
+            updateUserData(){                
                 let user = JSON.parse(localStorage.getItem('user'))
                 if(this.newUsername != '') user.username = this.newUsername
                 if(this.newFirstname != '') user.firstname = this.newFirstname
@@ -121,26 +118,30 @@
                 let index = this.users.findIndex(u => u.id == user.id)
                 this.users[index] = user
 
-                console.log(this.users)
+                this.newUsername != ''
+                this.newFirstname != ''
+                this.newLastname != ''
+                this.newAddress != ''
+                this.newTelephone != ''
+
                 alert("Podaci usepesno promenjeni")
             },
             updateUserPassword(){
-                let user = JSON.parse(localStorage.getItem('user'))
-                console.log(user)
+                let user = JSON.parse(localStorage.getItem('user'))                
 
                 if(this.oldPassword != user.password || this.newPassword0 != this.newPassword1){
                     alert('Pogresno uneti podaci')
                 }
                 else {
                     user.password = this.newPassword0;
-                    localStorage.setItem('user', JSON.stringify(user))
-                
+                    localStorage.setItem('user', JSON.stringify(user))                
                     let index = this.users.findIndex(u => u.id == user.id)
-                    this.users[index] = user
-
-                    console.log(this.user)
+                    this.users[index] = user                    
                     alert("Lozinka usepesno promenjena")
                 }
+                this.oldPassword = ''
+                this.newPassword1 = ''
+                this.newPassword0 = ''
             }
         },
         mounted(){
