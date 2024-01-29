@@ -1,9 +1,10 @@
 <template>
     <div id = "nav" class="d-flex justify-content-between">
-        <h1 id="name">            
+        <h1 id="name" @click="homeScreen()">            
             Slatki Zalogaj
         </h1>
-        <a class="fs-2 align-self-center" v-show="isBuyer || isSeller">Izmeni profil</a>
+        <a class="fs-2 align-self-center" v-show="(isBuyer || isSeller) && this.$route.name != 'changeProfileInfo'" 
+            @click="this.$router.push('changeProfileInfo')">Izmeni profil</a>
         <a class="fs-2 align-self-center" v-show="isBuyer">Obavestenja</a>
         <a class="fs-2 align-self-center" v-show="isBuyer">Korpa</a>
         <img id="logOut" src="../assets/logout.png" @click="logOut()" v-show="isBuyer || isSeller">
@@ -49,6 +50,15 @@
                 this.isBuyer = false
                 this.isSeller = false
                 this.$router.push('/')
+            },
+            homeScreen(){
+                if(localStorage.getItem('user') != null){
+                    let user = JSON.parse(localStorage.getItem('user'))
+
+                    if(user.type == 0)this.$router.push('buyer')
+                    else this.$router.push('seller')
+
+                }
             }
         },
         data(){
