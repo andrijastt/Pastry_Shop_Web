@@ -21,6 +21,11 @@ const routes = [
     path: '/changeProfileInfo',
     name: 'changeProfileInfo',
     component: () => import('../views/ChangeProfileInfoView.vue')
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: () => import('../views/CartView.vue')
   }
 ]
 

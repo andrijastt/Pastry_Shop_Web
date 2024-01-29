@@ -154,6 +154,11 @@
 
 <style>
 
+    a{                
+        text-decoration-line: underline;                
+        color: #000000;
+    }
+
     h1{
         font-style: italic;
     }

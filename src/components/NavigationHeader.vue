@@ -6,7 +6,8 @@
         <a class="fs-2 align-self-center" v-show="(isBuyer || isSeller) && this.$route.name != 'changeProfileInfo'" 
             @click="this.$router.push('changeProfileInfo')">Izmeni profil</a>
         <a class="fs-2 align-self-center" v-show="isBuyer">Obavestenja</a>
-        <a class="fs-2 align-self-center" v-show="isBuyer">Korpa</a>
+        <a class="fs-2 align-self-center" v-show="isBuyer  && this.$route.name != 'cart'"
+        @click="this.$router.push('cart')">Korpa</a>
         <img id="logOut" src="../assets/logout.png" @click="logOut()" v-show="isBuyer || isSeller">
     </div>
 </template>
