@@ -24,7 +24,7 @@
         left: 0;
         right: 0;
         background: white;
-        margin-top: 60%;       
+        margin-top: 65%;       
     }
 
     #footerText{                

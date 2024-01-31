@@ -2,24 +2,21 @@
     <NavigationHeader>
 
     </NavigationHeader>
-    <body>
-        <div id ="promotions" class="row justify-content-center">
-            <div class="col-11 card">
-                <div class="row justify-content-evenly">
-                    <div class="col-4 card border-0">
-                        <img src="../../public/img/Kolac_1.jpg" class="card-top-img promotionPicture mx-auto d-block">
-                        <div class="card-title fs-2 fw-bold">Kolac 1</div>
-                        <div class="card-text fs-4">Kolac 1 opis</div>
-                    </div>
-                    <div class="col-4 card border-0">
-                        <img src="../../public/img/Kolac_2.jpg" class="card-top-img  promotionPicture mx-auto d-block">
-                        <div class="card-title fs-2 fw-bold">Kolac 2</div>
-                        <div class="card-text fs-4">Kolac 2 opis</div>
-                    </div>
-                    <div class="col-4 card border-0">
-                        <img src="../../public/img/Torta_1.jpg" class="card-top-img promotionPicture mx-auto d-block">
-                        <div class="card-title fs-2 fw-bold">Torta 1</div>
-                        <div class="card-text fs-4">Torta 1 opis</div>
+    <body class="d-flex flex-column">
+        <div id="promotions" class="row justify-content-around">
+            <div class="col-11 card">                
+                <div class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">                                                
+                        <div class="d-flex flex-row mb-3 justify-content-evenly">
+                            <div v-for="(item, index) in promotions" :key="index" class='carousel-item' 
+                            :class="{ 'active': index < activeItems}">                            
+                                <div class="col-3">
+                                    <img :src="'/img/' + item.picture" class="promotionPicture">                                    
+                                    <div class="card-title fs-2 fw-bold text-middle">{{ item.name }}</div>
+                                    <div class="card-text fs-4 text-middle">{{ item.description }}</div>
+                                </div>                                                                                
+                            </div>
+                        </div>
                     </div>                    
                 </div>
             </div>
@@ -73,6 +70,8 @@
     import NavigationHeader from '../components/NavigationHeader.vue'
     import ContactInformation from '../components/ContactInformation.vue'
 
+    
+
     export default{
         name: 'BuyerView',
         components:{
@@ -91,7 +90,8 @@
             this.allDesserts = desserts                            
             this.cakes = this.allDesserts.filter(dessert => dessert.isCake == true)            
             this.desserts = this.allDesserts.filter(dessert => dessert.isCake == false)                                    
-            this.promotions = this.allDesserts.filter(dessert => dessert.promotion == true)                                    
+            this.promotions = this.allDesserts.filter(dessert => dessert.promotion == true)                  
+            this.startAutoplay()                   
         },
         data(){
             return{                
@@ -102,7 +102,8 @@
                 startCake: 0,
                 endCake: 3,
                 startDessert: 0,
-                endDessert: 3
+                endDessert: 3,                
+                activeItems: 3              
             }
         },
         methods:{
@@ -156,7 +157,17 @@
                         }
                     }                
                 }
-            }
+            },            
+            startAutoplay() {
+                setInterval(() => {
+                    this.nextSlide();
+                }, 5000);  
+            },            
+            nextSlide() {                
+                let promotion = this.promotions[0]                
+                this.promotions.splice(0, 1)
+                this.promotions.push(promotion)                    
+            }            
         }
     }
 
@@ -179,7 +190,7 @@
     #promotions{
         position: absolute;
         width: 100%;
-        height: 35%;    
+        height: fit-content;    
         top: 10%;
     }
 
@@ -187,7 +198,7 @@
         position: absolute;
         width: 100%;
         height: 35%;    
-        top: 50%;    
+        top: 57%;            
     }
 
     .svg{
@@ -200,8 +211,8 @@
     }
 
     .promotionPicture{
-        width: 35%;
+        width: 60%;
         height: 80%;
-    }
-  
+    }              
+    
 </style>
