@@ -2,23 +2,14 @@
     <NavigationHeader>
 
     </NavigationHeader>
-    <body class="d-flex flex-column">
-        <div id="promotions" class="row justify-content-around">
-            <div class="col-11 card">                
-                <div class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">                                                
-                        <div class="d-flex flex-row mb-3 justify-content-evenly">
-                            <div v-for="(item, index) in promotions" :key="index" class='carousel-item' 
-                            :class="{ 'active': index < activeItems}">                            
-                                <div class="col-3">
-                                    <img :src="'/img/' + item.picture" class="promotionPicture">                                    
-                                    <div class="card-title fs-2 fw-bold text-middle">{{ item.name }}</div>
-                                    <div class="card-text fs-4 text-middle">{{ item.description }}</div>
-                                </div>                                                                                
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
+    <body>
+        <div id="promotions" class="row">                                                                                                           
+            <div v-for="(item,index) in promotions" :key="index" class="col-4 card border-0">                
+                <div v-if="index < activeItems">
+                    <img :src="'/img/' + item.picture" class="card-img-top promotionPicture">                                    
+                    <div class="card-title fs-2 fw-bold text-middle">{{ item.name }}</div>
+                    <div class="card-text fs-4 text-middle">{{ item.description }}</div>
+                </div>                
             </div>
         </div>        
         <div id ="pastries" class="row justify-content-center">
@@ -189,9 +180,11 @@
 
     #promotions{
         position: absolute;
-        width: 100%;
+        width: 90%;
         height: fit-content;    
         top: 10%;
+        background: white;
+        left: 5%
     }
 
     #pastries{
@@ -211,8 +204,8 @@
     }
 
     .promotionPicture{
-        width: 60%;
-        height: 80%;
+        width: 50%;
+        height: 70%;
     }              
     
 </style>
