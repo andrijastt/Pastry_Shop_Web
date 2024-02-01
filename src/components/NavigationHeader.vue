@@ -55,10 +55,10 @@
             },
             homeScreen(){
                 if(localStorage.getItem('user') != null){
-                    let user = JSON.parse(localStorage.getItem('user'))
+                    let user = JSON.parse(localStorage.getItem('user'))                    
 
-                    if(user.type == 0)this.$router.push('buyer')
-                    else this.$router.push('seller')
+                    if(user.type == 0) this.$router.push({path: '/buyer'})
+                    else this.$router.push({path: '/seller'})
 
                 }
             }

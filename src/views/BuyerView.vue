@@ -6,9 +6,11 @@
         <div id="promotions" class="row rounded">                                                                                                           
             <div v-for="(item,index) in promotions" :key="index" class="col-4 card border-0">                
                 <div v-if="index < activeItems">
-                    <img :src="'/img/' + item.picture" class="card-img-top promotionPicture">                                    
-                    <div class="card-title fs-2 fw-bold text-middle">{{ item.name }}</div>
-                    <div class="card-text fs-4 text-middle">{{ item.description }}</div>
+                    <router-link :to='/dessertDetails/+item.id'>
+                        <img :src="'/img/' + item.picture" class="card-img-top promotionPicture">                                    
+                        <div class="card-title fs-2 fw-bold text-middle">{{ item.name }}</div>
+                        <div class="card-text fs-4 text-middle">{{ item.description }}</div>
+                    </router-link>
                 </div>                
             </div>
         </div>        
@@ -17,12 +19,14 @@
                 <div class="row justify-content-evenly">                    
                     <div class="col-5 card">                        
                         <h1 class="text-start fs-1 fw-bold">Kolaci</h1>                        
-                        <div class="row" v-for="dessert in desserts.slice(startDessert, endDessert)" :key="dessert.id">                            
-                            <img class="cakePicture" :src="'/img/' + dessert.picture">
-                            <div class="col-9">
-                                <div class="row fs-2 fw-bold">{{dessert.name}}</div>
-                                <div class="row fs-4">{{dessert.description}}</div>                                
-                            </div>                
+                        <div v-for="dessert in desserts.slice(startDessert, endDessert)" :key="dessert.id">      
+                            <router-link :to='/dessertDetails/+dessert.id' class="row p-2">
+                                <img class="cakePicture" :src="'/img/' + dessert.picture">
+                                <div class="col-9">
+                                    <div class="row fs-2 fw-bold">{{dessert.name}}</div>
+                                    <div class="row fs-4">{{dessert.description}}</div>                                
+                                </div>                
+                            </router-link>                      
                         </div>                                                          
                         <div class="row justify-content-between">
                                 <img class="svg float-left" src="../assets/arrow-left-circle.svg" @click="decrement(0)">
@@ -32,12 +36,14 @@
 
                     <div class="col-5 card">
                         <h1 class="text-start fs-1 fw-bold">Torte</h1>                        
-                        <div class="row" v-for="cake in cakes.slice(startCake, endCake)" :key="cake.id">                                                    
-                            <img class="col-1 cakePicture" :src="'/img/' + cake.picture" >                              
-                            <div class="col-9">
-                                <div class="row fs-2 fw-bold">{{ cake.name }}</div>
-                                <div class="row fs-4">{{ cake.description }}</div>                                
-                            </div>
+                        <div v-for="cake in cakes.slice(startCake, endCake)" :key="cake.id">   
+                            <router-link :to='/dessertDetails/+cake.id' class="row p-2">
+                                <img class="cakePicture" :src="'/img/' + cake.picture" >                              
+                                <div class="col-9">
+                                    <div class="row fs-2 fw-bold">{{ cake.name }}</div>
+                                    <div class="row fs-4">{{ cake.description }}</div>                                
+                                </div>
+                            </router-link>                                                 
                         </div>                         
                         <div class="row justify-content-between">
                                 <img class="svg float-left" src="../assets/arrow-left-circle.svg" @click="decrement(1)">

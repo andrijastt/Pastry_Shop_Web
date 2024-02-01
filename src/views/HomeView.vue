@@ -1,8 +1,6 @@
 <template>
   <div>
-    <NavigationHeader>
-
-    </NavigationHeader>  
+    <NavigationHeader/>    
     <body>
       <div class="card" id="logIn">        
         <div class="card-body">
@@ -33,9 +31,7 @@
     </body>      
   </div>
 
-  <ContactInformation>
-
-  </ContactInformation>
+  <ContactInformation/>  
 </template>
 
 <script>
