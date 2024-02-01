@@ -3,7 +3,7 @@
 
     </NavigationHeader>
     <body>
-        <div id="promotions" class="row">                                                                                                           
+        <div id="promotions" class="row rounded">                                                                                                           
             <div v-for="(item,index) in promotions" :key="index" class="col-4 card border-0">                
                 <div v-if="index < activeItems">
                     <img :src="'/img/' + item.picture" class="card-img-top promotionPicture">                                    
