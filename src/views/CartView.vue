@@ -22,7 +22,7 @@
       </div>
       <h1>
         {{ totalPrice }} RSD
-        <button class="btn btn-warning fs-1 fw-bold text-end" type="button">
+        <button class="btn btn-warning fs-1 fw-bold text-end" type="button" @click="confirm" v-if="totalPrice != 0">
           Potvrdi
         </button>
       </h1>
@@ -57,8 +57,32 @@ export default {
     });
   },
   methods:{
-    confirm(){
-        
+    confirm(){            
+
+      let notification = {
+        userID: this.cart.id,
+        answered: 0,
+        message: 'Porudzbina ',
+        price: this.totalPrice
+      }
+
+      this.cart.items.forEach((element, index) => {
+        notification.message += element.amount + 'x ' + element.dessert.name 
+        if(index != this.cart.items.lengths - 1) notification.message += ', '
+      });
+      
+      let allCarts = JSON.parse(localStorage.getItem("carts"));
+      let cartIndex = allCarts.findIndex(cart => cart.id = this.cart.id)
+      this.cart.items = []
+    
+      let notifications = JSON.parse(localStorage.getItem('notifications'))
+      notifications.push(notification)
+      localStorage.setItem('notifications', JSON.stringify(notifications))
+
+      allCarts[cartIndex] = this.cart
+      localStorage.setItem('carts', JSON.stringify(allCarts))
+      this.totalPrice = 0
+      alert('Porudzbina uspesno poslata')
     }
   }
 };
@@ -87,7 +111,7 @@ body {
   top: 10%;
   left: 30%;
   width: 40%;
-  min-height: 60%;
+  min-height: 70%;
   height: fit-content;
 }
 
