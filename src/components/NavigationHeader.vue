@@ -1,6 +1,6 @@
 <template>
     <div id = "nav" class="d-flex justify-content-between">
-        <h1 id="name" @click="homeScreen()">            
+        <h1 id="name" @click="route('home')">            
             Slatki Zalogaj
         </h1>
         <a class="fs-2 align-self-center" v-show="(isBuyer || isSeller) && this.$route.name != 'changeProfileInfo'" 
