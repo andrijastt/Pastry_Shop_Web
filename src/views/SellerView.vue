@@ -1,13 +1,9 @@
 <template>
-    <NavigationHeader>
-
-    </NavigationHeader>
+    <NavigationHeader/>    
     <body>
         
-    </body>
-    <ContactInformation>
-
-    </ContactInformation>
+    </body>    
+    <ContactInformation/>
 </template>
 
 <script>

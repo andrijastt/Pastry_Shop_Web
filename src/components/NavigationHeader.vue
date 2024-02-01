@@ -4,11 +4,11 @@
             Slatki Zalogaj
         </h1>
         <a class="fs-2 align-self-center" v-show="(isBuyer || isSeller) && this.$route.name != 'changeProfileInfo'" 
-            @click="this.$router.push('changeProfileInfo')">Izmeni profil</a>
+            @click="route('changeProfileInfo')">Izmeni profil</a>
         <a class="fs-2 align-self-center" v-show="isBuyer && this.$route.name != 'notifications'"
-        @click="this.$router.push('notifications')">Obavestenja</a>
+        @click="route('notifications')">Obavestenja</a>
         <a class="fs-2 align-self-center" v-show="isBuyer  && this.$route.name != 'cart'"
-        @click="this.$router.push('cart')">Korpa</a>
+        @click="route('cart')">Korpa</a>
         <img id="logOut" src="../assets/logout.png" @click="logOut()" v-show="isBuyer || isSeller">
     </div>
 </template>
@@ -53,14 +53,18 @@
                 this.isSeller = false
                 this.$router.push('/')
             },
-            homeScreen(){
-                if(localStorage.getItem('user') != null){
-                    let user = JSON.parse(localStorage.getItem('user'))                    
-
-                    if(user.type == 0) this.$router.push({path: '/buyer'})
-                    else this.$router.push({path: '/seller'})
-
+            route(path){
+                if(path == 'home'){
+                    if(localStorage.getItem('user') != null){
+                        let user = JSON.parse(localStorage.getItem('user'))                    
+    
+                        if(user.type == 0) this.$router.push({path: '/buyer'})
+                        else this.$router.push({path: '/seller'})
+    
+                    }
+                    return
                 }
+                this.$router.push({path: '/' + path})
             }
         },
         data(){
