@@ -54,8 +54,24 @@
       }
     },
     mounted(){
-      if(localStorage.getItem('users') == null) this.users = users      
-      else this.users = JSON.parse(localStorage.getItem('users'))      
+      this.users = users    
+      
+      if(localStorage.getItem('comments') == null) localStorage.setItem('comments', '')
+      if(localStorage.getItem('carts') == null){ 
+        let carts = []
+
+        this.users.forEach(element => {
+          if(element.type == 0){
+            carts.push({
+              id: element.id,
+              items: []
+            })
+          }
+        });
+        localStorage.setItem('carts', JSON.stringify(carts))
+      }
+      if(localStorage.getItem('notifications') == null) localStorage.setItem('notifications', JSON.stringify([]))
+
     },
     methods:{
       login(value){

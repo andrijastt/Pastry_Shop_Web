@@ -26,6 +26,16 @@
         components:{
             NavigationHeader,
             ContactInformation
+        },
+        data() {
+            return{
+                notifications: []
+            }
+        },
+        mounted(){
+            let allNotifications = JSON.parse(localStorage.getItem('notifications'))
+            let user = JSON.parse(localStorage.getItem('user'))
+            this.notifications = allNotifications.filter(notification => notification.userID = user.id)
         }
     }
 
