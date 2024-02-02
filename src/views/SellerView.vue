@@ -114,7 +114,7 @@
                 <button
                   type="button"
                   class="btn btn-warning btn-lg"
-                  @click="setNotification(0, notification)"
+                  @click="setNotification(-1, notification)"
                 >
                   Odbij
                 </button>
@@ -124,7 +124,7 @@
               <div v-if="notification.answered == 1" class="fs-3 fw-bold">
                 Prihvacena porudzbina
               </div>
-              <div v-if="notification.answered == 0" class="fs-3 fw-bold">
+              <div v-if="notification.answered == -1" class="fs-3 fw-bold">
                 Odbijena porudzbina
               </div>
             </div>
