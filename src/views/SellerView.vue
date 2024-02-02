@@ -43,9 +43,9 @@
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
-            <img src="../../public/img/Kolac_1.jpg" class="img" />
-            <img src="../../public/img/Kolac_2.jpg" class="img" />
-            <img src="../../public/img/Torta_1.jpg" class="img" />
+            <img src="../../public/img/Kolac_1.jpg" value="Kolac_1.jpg" class="img" />
+            <img src="../../public/img/Kolac_2.jpg" value="Kolac_2.jpg" class="img" />
+            <img src="../../public/img/Torta_1.jpg" value="Torta_1.jpg" class="img" />
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">

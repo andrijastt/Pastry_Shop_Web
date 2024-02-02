@@ -53,6 +53,7 @@
 import NavigationHeader from "../components/NavigationHeader.vue";
 import ContactInformation from "../components/ContactInformation.vue";
 import users from "../data/users.js";
+import desserts from "../data/desserts.js";
 
 export default {
   name: "HomeView",
@@ -69,6 +70,8 @@ export default {
   },
   mounted() {
     this.users = users;
+
+    if(localStorage.getItem('desserts') == null) localStorage.setItem('desserts', JSON.stringify(desserts))
 
     if (localStorage.getItem("comments") == null)
       localStorage.setItem("comments", JSON.stringify([]));

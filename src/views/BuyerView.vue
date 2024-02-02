@@ -86,8 +86,6 @@
 </template>
 
 <script>
-import desserts from "../data/desserts.js";
-
 import NavigationHeader from "../components/NavigationHeader.vue";
 import ContactInformation from "../components/ContactInformation.vue";
 
@@ -98,7 +96,7 @@ export default {
     ContactInformation,
   },
   mounted() {
-    this.allDesserts = desserts;
+    this.allDesserts = JSON.parse(localStorage.getItem("desserts"));
     this.cakes = this.allDesserts.filter((dessert) => dessert.isCake == true);
     this.desserts = this.allDesserts.filter(
       (dessert) => dessert.isCake == false
