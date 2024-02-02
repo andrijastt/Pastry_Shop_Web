@@ -10,6 +10,7 @@
               type="text"
               class="form-control w-75 bg-light bg-gradient"
               placeholder="Naziv"
+              v-model="name"
             />
           </div>
           <div class="mb-3 d-flex justify-content-center input-group-lg">
@@ -18,13 +19,14 @@
               class="form-control w-75 bg-light bg-gradient"
               placeholder="Cena"
               min="0"
+              v-model="price"
             />
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
-            <div><input type="checkbox" /><B class="fs-5">Promocija</B></div>
-            <div><input type="radio" /><B class="fs-5">Kolac</B></div>
-            <div><input type="radio" /><B class="fs-5">Torta</B></div>
+            <div><input type="checkbox" v-model="promotion"/><B class="fs-5">Promocija</B></div>
+            <div><input type="radio" value="false" v-model="isCake"/><B class="fs-5">Kolac</B></div>
+            <div><input type="radio" value="true" v-model="isCake"/><B class="fs-5">Torta</B></div>
           </div>
 
           <div class="mb-3 d-flex justify-content-center input-group-lg">
@@ -32,6 +34,7 @@
               class="form-control w-75 bg-light bg-gradient"
               placeholder="Opis"
               min="0"
+              v-model="description"
             />
           </div>
           <div class="mb-3 d-flex justify-content-center input-group-lg">
@@ -39,13 +42,14 @@
               class="form-control w-75 bg-light bg-gradient"
               placeholder="Sastav"
               min="0"
+              v-model="ingerdients"
             />
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
-            <img src="../../public/img/Kolac_1.jpg" value="Kolac_1.jpg" class="img" />
-            <img src="../../public/img/Kolac_2.jpg" value="Kolac_2.jpg" class="img" />
-            <img src="../../public/img/Torta_1.jpg" value="Torta_1.jpg" class="img" />
+            <img src="../../public/img/Kolac_1.jpg" class="img" @click="imgValue = 'Kolac_1.jpg'" :class="imgValue === 'Kolac_1.jpg' ? 'border border-primary' : ''" />
+            <img src="../../public/img/Kolac_2.jpg" class="img" @click="imgValue = 'Kolac_2.jpg'" :class="imgValue === 'Kolac_2.jpg' ? 'border border-primary' : ''" />
+            <img src="../../public/img/Torta_1.jpg" class="img" @click="imgValue = 'Torta_1.jpg'" :class="imgValue === 'Torta_1.jpg' ? 'border border-primary' : ''" />
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
@@ -100,6 +104,14 @@ export default {
   data() {
     return {
       notifications: [],
+      name: '',
+      price: 0,
+      promotion: false,
+      isCake: false,
+      imgValue: '',
+      description: '',
+      ingerdients: '',
+      nextID: 14
     };
   },
   mounted() {
@@ -112,6 +124,30 @@ export default {
 
       if(val == 1) alert('Porudzbina prihvacena')
       else alert('Porudzbina odbijena')
+    },
+    addNewDessert(){
+
+      if(this.name === '' || this.description === '' || this.ingredients === '' || this.picture === '' || this.price <= 0){
+        alert('Nisu svi podaci uneti lepo')
+        return
+      }
+
+      let newDessert = {
+        id: this.nextID,        
+        name: this.name,
+        description: this.description,
+        ingredients: this.ingerdients,
+        picture: this.imgValue,  
+        price: this.price,      
+        promotion: this.promotion,
+        isCake: this.isCake
+      }
+      this.nextID++
+      let allDesserts = JSON.parse(localStorage.getItem('desserts'))
+      allDesserts.push(newDessert)
+      localStorage.setItem('desserts', JSON.stringify(allDesserts))
+
+      alert('Uspesno dodat novi kolac')
     }
   }
 };
