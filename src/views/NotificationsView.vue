@@ -39,7 +39,7 @@ export default {
     let user = JSON.parse(localStorage.getItem("user"));
     this.notifications = allNotifications.filter(
       (notification) =>
-        (notification.userID = user.id && notification.answered != 0)
+        (notification.userID == user.id && notification.answered != 0)
     );
   },
 };
