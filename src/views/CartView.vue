@@ -59,8 +59,11 @@ export default {
   methods:{
     confirm(){            
 
+      let user = JSON.parse(localStorage.getItem("user"));
+
       let notification = {
-        userID: this.cart.id,
+        firstname: user.firstname,
+        lastname: user.lastname,
         answered: 0,
         message: 'Porudzbina ',
         price: this.totalPrice
