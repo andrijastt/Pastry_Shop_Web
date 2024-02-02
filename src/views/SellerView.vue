@@ -61,22 +61,22 @@
           <hr class="hr" />
           <div v-for="(notification, index) in notifications" :key="index">
             <div class="fs-4">
-              {{ notification.message }} ({{ notification.price }} RSD)
+              <b>{{ notification.firstname }} {{ notification.lastname }}: </b>{{ notification.message }} ({{ notification.price }} RSD)
             </div>
             <br>
             <div v-if="notification.answered == 0">
               <div class="gap-5 d-flex justify-content-center">
-                <button type="button" class="btn btn-warning btn-lg">
+                <button type="button" class="btn btn-warning btn-lg" @click="setNotification(1, notification)">
                   Prihvati
                 </button>
-                <button type="button" class="btn btn-warning btn-lg">
+                <button type="button" class="btn btn-warning btn-lg" @click="setNotification(0, notification)">
                   Odbij
                 </button>
               </div>
             </div>
             <div v-else>
-              <div v-if="notification.answered == 1">Prihvacena porudzbina</div>
-              <div v-else>Odbijena porudzbina</div>
+              <div v-if="notification.answered == 1" class="fs-3 fw-bold">Prihvacena porudzbina</div>
+              <div v-else class="fs-3 fw-bold">Odbijena porudzbina</div>
             </div>
             <hr class="hr" />
           </div>
@@ -105,6 +105,15 @@ export default {
   mounted() {
     this.notifications = JSON.parse(localStorage.getItem("notifications"));
   },
+  methods:{
+    setNotification(val, notification){
+      notification.answered = val
+      localStorage.setItem('notifications', JSON.stringify(this.notifications))
+
+      if(val == 1) alert('Porudzbina prihvacena')
+      else alert('Porudzbina odbijena')
+    }
+  }
 };
 </script>
 
