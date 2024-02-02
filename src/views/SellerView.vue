@@ -60,7 +60,7 @@
           <h1 class="card-title fw-bold fs-1">Narudzbine</h1>
           <hr class="hr" />
           <div v-for="(notification, index) in notifications" :key="index">
-            <div class="fs-4">
+            <div class="fs-4 text-start">
               <b>{{ notification.firstname }} {{ notification.lastname }}: </b>{{ notification.message }} ({{ notification.price }} RSD)
             </div>
             <br>
