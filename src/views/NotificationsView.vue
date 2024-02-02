@@ -35,7 +35,7 @@
         mounted(){
             let allNotifications = JSON.parse(localStorage.getItem('notifications'))
             let user = JSON.parse(localStorage.getItem('user'))
-            this.notifications = allNotifications.filter(notification => notification.userID = user.id)
+            this.notifications = allNotifications.filter(notification => notification.userID = user.id && notification.answered != 0)
         }
     }
 
