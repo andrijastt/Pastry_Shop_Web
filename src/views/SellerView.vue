@@ -49,7 +49,9 @@
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
-            <button type="button" class="btn btn-warning btn-lg fs-1">Dodaj</button>
+            <button type="button" class="btn btn-warning btn-lg fs-1">
+              Dodaj
+            </button>
           </div>
         </div>
       </div>
@@ -57,6 +59,27 @@
         <div class="card-body">
           <h1 class="card-title fw-bold fs-1">Narudzbine</h1>
           <hr class="hr" />
+          <div v-for="(notification, index) in notifications" :key="index">
+            <div class="fs-4">
+              {{ notification.message }} ({{ notification.price }} RSD)
+            </div>
+            <br>
+            <div v-if="notification.answered == 0">
+              <div class="gap-5 d-flex justify-content-center">
+                <button type="button" class="btn btn-warning btn-lg">
+                  Prihvati
+                </button>
+                <button type="button" class="btn btn-warning btn-lg">
+                  Odbij
+                </button>
+              </div>
+            </div>
+            <div v-else>
+              <div v-if="notification.answered == 1">Prihvacena porudzbina</div>
+              <div v-else>Odbijena porudzbina</div>
+            </div>
+            <hr class="hr" />
+          </div>
         </div>
       </div>
     </div>
@@ -79,7 +102,9 @@ export default {
       notifications: [],
     };
   },
-  mounted() {},
+  mounted() {
+    this.notifications = JSON.parse(localStorage.getItem("notifications"));
+  },
 };
 </script>
 
