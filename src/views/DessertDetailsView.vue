@@ -2,7 +2,7 @@
   <NavigationHeader />
   <body>
     <div class="row gy-5" id="dessert">
-      <div class="col-12">
+      <div class="col-11">
         <div class="card">
           <div class="card-body row">
             <img
@@ -39,20 +39,25 @@
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-11">
         <div class="card h-100">
           <div class="card-body">
             <h1 class="card-header text-start bg-white fw-bold fs-1">
               Komentari
             </h1>
-            <div class="text-start fs-3 p-2" v-for="(comment, index) in comments" :key="index">
-              <b>{{ comment.firstname }} {{ comment.lastname }}:</b> {{ comment.comment }}
+            <div
+              class="text-start fs-3 p-2"
+              v-for="(comment, index) in comments"
+              :key="index"
+            >
+              <b>{{ comment.firstname }} {{ comment.lastname }}:</b>
+              {{ comment.comment }}
               <hr class="hr" />
             </div>
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-11">
         <div class="card h-100">
           <div class="card-body">
             <h1 class="card-header text-start bg-white fw-bold fs-1">
@@ -65,7 +70,11 @@
             />
             <br />
             <div class="d-md-flex justify-content-md-end">
-              <button class="btn btn-warning btn-lg" type="button" @click="addComment">
+              <button
+                class="btn btn-warning btn-lg"
+                type="button"
+                @click="addComment"
+              >
                 Dodaj komentar
               </button>
             </div>
@@ -80,7 +89,6 @@
 <script>
 import NavigationHeader from "../components/NavigationHeader.vue";
 import ContactInformation from "../components/ContactInformation.vue";
-import desserts from "../data/desserts";
 
 export default {
   name: "DessertDetailsView",
@@ -99,7 +107,7 @@ export default {
     };
   },
   mounted() {
-    this.allDesserts = desserts;
+    this.allDesserts = JSON.parse(localStorage.getItem("desserts"));
 
     let id = Number(this.$route.params.id);
     let dessert = this.allDesserts.find((dessert) => dessert.id == id);
@@ -109,8 +117,10 @@ export default {
     let user = JSON.parse(localStorage.getItem("user"));
     this.cart = carts.find((cart) => cart.id == user.id);
 
-    let allComments = JSON.parse(localStorage.getItem('comments'))
-    this.comments = allComments.filter(comment => comment.dessertID == this.dessert.id)
+    let allComments = JSON.parse(localStorage.getItem("comments"));
+    this.comments = allComments.filter(
+      (comment) => comment.dessertID == this.dessert.id
+    );
   },
   methods: {
     addToCart() {
@@ -141,17 +151,16 @@ export default {
         firstname: user.firstname,
         lastname: user.lastname,
         comment: this.comment,
-        dessertID: this.dessert.id
-      }
+        dessertID: this.dessert.id,
+      };
 
-      this.comments.push(newComment)
+      this.comments.push(newComment);
 
-      let allComments = JSON.parse(localStorage.getItem('comments'))
-      allComments.push(newComment)
-      localStorage.setItem('comments', JSON.stringify(allComments))
+      let allComments = JSON.parse(localStorage.getItem("comments"));
+      allComments.push(newComment);
+      localStorage.setItem("comments", JSON.stringify(allComments));
 
-      this.comment = ''
-      alert('Added new comment')
+      this.comment = "";
     },
   },
 };

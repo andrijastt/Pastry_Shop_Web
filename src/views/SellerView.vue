@@ -24,9 +24,23 @@
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
-            <div><input type="checkbox" v-model="promotion"/><B class="fs-5">Promocija</B></div>
-            <div><input type="radio" value="false" v-model="isCake"/><B class="fs-5">Kolac</B></div>
-            <div><input type="radio" value="true" v-model="isCake"/><B class="fs-5">Torta</B></div>
+            <div>
+              <input type="checkbox" v-model="promotion" /><B class="fs-5"
+                >Promocija</B
+              >
+            </div>
+            <div>
+              <input type="radio" value="false" v-model="isCake" /><B
+                class="fs-5"
+                >Kolac</B
+              >
+            </div>
+            <div>
+              <input type="radio" value="true" v-model="isCake" /><B
+                class="fs-5"
+                >Torta</B
+              >
+            </div>
           </div>
 
           <div class="mb-3 d-flex justify-content-center input-group-lg">
@@ -47,13 +61,32 @@
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
-            <img src="../../public/img/Kolac_1.jpg" class="img" @click="imgValue = 'Kolac_1.jpg'" :class="imgValue === 'Kolac_1.jpg' ? 'border border-primary' : ''" />
-            <img src="../../public/img/Kolac_2.jpg" class="img" @click="imgValue = 'Kolac_2.jpg'" :class="imgValue === 'Kolac_2.jpg' ? 'border border-primary' : ''" />
-            <img src="../../public/img/Torta_1.jpg" class="img" @click="imgValue = 'Torta_1.jpg'" :class="imgValue === 'Torta_1.jpg' ? 'border border-primary' : ''" />
+            <img
+              src="../../public/img/Kolac_1.jpg"
+              class="img"
+              @click="imgValue = 'Kolac_1.jpg'"
+              :class="imgValue === 'Kolac_1.jpg' ? 'border border-primary' : ''"
+            />
+            <img
+              src="../../public/img/Kolac_2.jpg"
+              class="img"
+              @click="imgValue = 'Kolac_2.jpg'"
+              :class="imgValue === 'Kolac_2.jpg' ? 'border border-primary' : ''"
+            />
+            <img
+              src="../../public/img/Torta_1.jpg"
+              class="img"
+              @click="imgValue = 'Torta_1.jpg'"
+              :class="imgValue === 'Torta_1.jpg' ? 'border border-primary' : ''"
+            />
           </div>
 
           <div class="mb-3 d-flex justify-content-evenly input-group-lg">
-            <button type="button" class="btn btn-warning btn-lg fs-1">
+            <button
+              type="button"
+              class="btn btn-warning btn-lg fs-1"
+              @click="addNewDessert"
+            >
               Dodaj
             </button>
           </div>
@@ -65,22 +98,35 @@
           <hr class="hr" />
           <div v-for="(notification, index) in notifications" :key="index">
             <div class="fs-4 text-start">
-              <b>{{ notification.firstname }} {{ notification.lastname }}: </b>{{ notification.message }} ({{ notification.price }} RSD)
+              <b>{{ notification.firstname }} {{ notification.lastname }}: </b
+              >{{ notification.message }} ({{ notification.price }} RSD)
             </div>
-            <br>
+            <br />
             <div v-if="notification.answered == 0">
               <div class="gap-5 d-flex justify-content-center">
-                <button type="button" class="btn btn-warning btn-lg" @click="setNotification(1, notification)">
+                <button
+                  type="button"
+                  class="btn btn-warning btn-lg"
+                  @click="setNotification(1, notification)"
+                >
                   Prihvati
                 </button>
-                <button type="button" class="btn btn-warning btn-lg" @click="setNotification(0, notification)">
+                <button
+                  type="button"
+                  class="btn btn-warning btn-lg"
+                  @click="setNotification(0, notification)"
+                >
                   Odbij
                 </button>
               </div>
             </div>
             <div v-else>
-              <div v-if="notification.answered == 1" class="fs-3 fw-bold">Prihvacena porudzbina</div>
-              <div v-else class="fs-3 fw-bold">Odbijena porudzbina</div>
+              <div v-if="notification.answered == 1" class="fs-3 fw-bold">
+                Prihvacena porudzbina
+              </div>
+              <div v-if="notification.answered == 0" class="fs-3 fw-bold">
+                Odbijena porudzbina
+              </div>
             </div>
             <hr class="hr" />
           </div>
@@ -104,52 +150,57 @@ export default {
   data() {
     return {
       notifications: [],
-      name: '',
+      name: "",
       price: 0,
       promotion: false,
       isCake: false,
-      imgValue: '',
-      description: '',
-      ingerdients: '',
-      nextID: 14
+      imgValue: "",
+      description: "",
+      ingerdients: "",
+      nextID: 14,
     };
   },
   mounted() {
     this.notifications = JSON.parse(localStorage.getItem("notifications"));
   },
-  methods:{
-    setNotification(val, notification){
-      notification.answered = val
-      localStorage.setItem('notifications', JSON.stringify(this.notifications))
+  methods: {
+    setNotification(val, notification) {
+      notification.answered = val;
+      localStorage.setItem("notifications", JSON.stringify(this.notifications));
 
-      if(val == 1) alert('Porudzbina prihvacena')
-      else alert('Porudzbina odbijena')
+      if (val == 1) alert("Porudzbina prihvacena");
+      else alert("Porudzbina odbijena");
     },
-    addNewDessert(){
-
-      if(this.name === '' || this.description === '' || this.ingredients === '' || this.picture === '' || this.price <= 0){
-        alert('Nisu svi podaci uneti lepo')
-        return
+    addNewDessert() {
+      if (
+        this.name === "" ||
+        this.description === "" ||
+        this.ingredients === "" ||
+        this.picture === "" ||
+        this.price <= 0
+      ) {
+        alert("Nisu svi podaci uneti lepo");
+        return;
       }
 
       let newDessert = {
-        id: this.nextID,        
+        id: this.nextID,
         name: this.name,
         description: this.description,
         ingredients: this.ingerdients,
-        picture: this.imgValue,  
-        price: this.price,      
+        picture: this.imgValue,
+        price: this.price,
         promotion: this.promotion,
-        isCake: this.isCake
-      }
-      this.nextID++
-      let allDesserts = JSON.parse(localStorage.getItem('desserts'))
-      allDesserts.push(newDessert)
-      localStorage.setItem('desserts', JSON.stringify(allDesserts))
+        isCake: this.isCake,
+      };
+      this.nextID++;
+      let allDesserts = JSON.parse(localStorage.getItem("desserts"));
+      allDesserts.push(newDessert);
+      localStorage.setItem("desserts", JSON.stringify(allDesserts));
 
-      alert('Uspesno dodat novi kolac')
-    }
-  }
+      alert("Uspesno dodat novi kolac");
+    },
+  },
 };
 </script>
 

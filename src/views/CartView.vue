@@ -62,6 +62,7 @@ export default {
       let user = JSON.parse(localStorage.getItem("user"));
 
       let notification = {
+        id: user.id,
         firstname: user.firstname,
         lastname: user.lastname,
         answered: 0,
