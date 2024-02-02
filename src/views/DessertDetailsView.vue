@@ -45,8 +45,9 @@
             <h1 class="card-header text-start bg-white fw-bold fs-1">
               Komentari
             </h1>
-            <div class="text-start fs-3 p-3">              
-              <!-- <hr class="hr" /> -->
+            <div class="text-start fs-3 p-2" v-for="(comment, index) in comments" :key="index">
+              <b>{{ comment.firstname }} {{ comment.lastname }}:</b> {{ comment.comment }}
+              <hr class="hr" />
             </div>
           </div>
         </div>
@@ -58,17 +59,14 @@
               Komentar
             </h1>
             <br />
-            <div class="form-floating">
-              <textarea
-                class="form-control bg-light bg-gradient"
-                id="floatingTextarea"
-              />
-              <label class="fs-3" for="floatingTextarea">Komentar</label>
-            </div>
+            <textarea
+              class="form-control bg-light bg-gradient"
+              v-model="comment"
+            />
             <br />
             <div class="d-md-flex justify-content-md-end">
-              <button class="btn btn-warning btn-lg" type="button">
-                Dodaj u korpu
+              <button class="btn btn-warning btn-lg" type="button" @click="addComment">
+                Dodaj komentar
               </button>
             </div>
           </div>
@@ -95,42 +93,67 @@ export default {
       allDesserts: [],
       dessert: {},
       amount: 0,
-      cart: {}
+      cart: {},
+      comments: [],
+      comment: "",
     };
   },
   mounted() {
     this.allDesserts = desserts;
-    
+
     let id = Number(this.$route.params.id);
     let dessert = this.allDesserts.find((dessert) => dessert.id == id);
     this.dessert = dessert;
 
-    let carts = JSON.parse(localStorage.getItem('carts'))
-    let user = JSON.parse(localStorage.getItem('user'))
-    this.cart = carts.find(cart => cart.id == user.id)    
+    let carts = JSON.parse(localStorage.getItem("carts"));
+    let user = JSON.parse(localStorage.getItem("user"));
+    this.cart = carts.find((cart) => cart.id == user.id);
+
+    let allComments = JSON.parse(localStorage.getItem('comments'))
+    this.comments = allComments.filter(comment => comment.dessertID == this.dessert.id)
   },
   methods: {
-    addToCart(){
-        if(this.amount <= 0){
-            alert('Ne mozete dodati 0 kolaca')
-            return
-        }
+    addToCart() {
+      if (this.amount <= 0) {
+        alert("Ne mozete dodati 0 kolaca");
+        return;
+      }
 
-        let index = this.cart.items.findIndex(item => item.dessert.id == this.dessert.id)
-        if(index == -1) this.cart.items.push({amount: this.amount, dessert: this.dessert})
-        else this.cart.items[index].amount += this.amount
+      let index = this.cart.items.findIndex(
+        (item) => item.dessert.id == this.dessert.id
+      );
+      if (index == -1)
+        this.cart.items.push({ amount: this.amount, dessert: this.dessert });
+      else this.cart.items[index].amount += this.amount;
 
-        this.amount = 0
+      this.amount = 0;
 
-        let carts = JSON.parse(localStorage.getItem('carts'))
-        let indexCart = carts.findIndex(cart => cart.id == this.cart.id)  
-        carts[indexCart] = this.cart
-        localStorage.setItem('carts', JSON.stringify(carts))
+      let carts = JSON.parse(localStorage.getItem("carts"));
+      let indexCart = carts.findIndex((cart) => cart.id == this.cart.id);
+      carts[indexCart] = this.cart;
+      localStorage.setItem("carts", JSON.stringify(carts));
 
-        alert('Uspesno ste dodali kolac u korpu')
-        
-    }
-  }
+      alert("Uspesno ste dodali kolac u korpu");
+    },
+    addComment() {
+      let user = JSON.parse(localStorage.getItem("user"));
+      let newComment = {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        comment: this.comment,
+        dessertID: this.dessert.id
+      }
+
+      this.comments.push(newComment)
+
+      let allComments = JSON.parse(localStorage.getItem('comments'))
+      allComments.push(newComment)
+      localStorage.setItem('comments', JSON.stringify(allComments))
+
+      this.comment = ''
+      alert('Added new comment')
+    },
+  },
 };
 </script>
 

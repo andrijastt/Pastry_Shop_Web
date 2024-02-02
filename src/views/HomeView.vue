@@ -71,7 +71,7 @@ export default {
     this.users = users;
 
     if (localStorage.getItem("comments") == null)
-      localStorage.setItem("comments", "");
+      localStorage.setItem("comments", JSON.stringify([]));
     if (localStorage.getItem("carts") == null) {
       let carts = [];
 
