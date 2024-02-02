@@ -10,8 +10,8 @@
         <div class="card-body">
             <div v-for="(notification, index) in notifications" :key="index" class="fs-2 text-start">
                 {{ notification.message }} {{ notification.answered == 1 ? 'je prihvacena' : 'je odbijena' }}
+                <hr class="hr" />          
             </div>
-            <hr class="hr" />          
         </div>
       </div>
     </div>

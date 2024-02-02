@@ -69,10 +69,11 @@ export default {
         message: 'Porudzbina ',
         price: this.totalPrice
       }
-
+      
       this.cart.items.forEach((element, index) => {
-        notification.message += element.amount + 'x ' + element.dessert.name 
-        if(index != this.cart.items.lengths - 1) notification.message += ', '
+        notification.message += element.amount + 'x ' + element.dessert.name         
+        if(index !== this.cart.items.length - 1) notification.message += ', '
+        else notification.message += ' '
       });
       
       let allCarts = JSON.parse(localStorage.getItem("carts"));
